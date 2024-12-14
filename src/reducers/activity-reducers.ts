@@ -1,17 +1,17 @@
 import { Activity } from "../types";
 
-export type ActivityActions = {
+export type ActivityActions = 
 
-    type: 'save-activity', payload: { newActivity : Activity }
-};
+  { type: 'save-activity', payload: { newActivity : Activity } } |
+  { type: 'set-activeId', payload: { id : Activity['id'] } } ;
 
-type ActvityState = {
-  activities: Activity[];
-  auth:true;
+  type ActvityState = {
+    activities: Activity[];
+    activeId: Activity['id']
 };
 export const initialState: ActvityState = {
     activities: [],
-    auth: true
+    activeId: ''
 };
 
 export const activityReducer = (
@@ -27,5 +27,14 @@ export const activityReducer = (
   }
         
     }
-    return state
+
+
+    if(action.type === 'set-activeId'){
+      return {
+        ...state,
+        activeId: action.payload.id
+      }
+    }
+
+    //return state
 };
